@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: gateway-mvc
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: lb:/USER-SERVICE #routing 정보를 구분하기 위한 id
+              uri: http://localhost:8080/ #어디로 갈것인가 lb:USER-SERVICE
+              predicates:
+                - Path=/user-service/** #어떠한 요청이 왔을 때 uri로 보낼것인가
+              filters:
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment} #/user-service(이 부분 제거)/api/users
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
