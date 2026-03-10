@@ -1,0 +1,22 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: gateway-webflux
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: user-service
+              uri: http://localhost:8080/
+              predicates:
+                - Path=/user-service/**
+              filters:
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment} #/user-service(이 부분 제거)/api/users
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
