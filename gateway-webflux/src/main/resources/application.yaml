@@ -13,7 +13,11 @@ spring:
               predicates:
                 - Path=/user-service/**
               filters:
-                - RewritePath=/user-service/(?<segment>.*), /$\{segment} #/user-service(이 부분 제거)/api/users
+#                - RewritePath=/user-service/(?<segment>.*), /$\{segment} #/user-service(이 부분 제거)/api/users
+                - StripPrefix=1 #origin/endpoint 첫 번째 endpoint 제거 위 RewritePath랑 같은 효과
+                - AddRequestHeader=add-request-header-value, add-request-header-key
+                - AddResponseHeader=add-response-header-value, add-response-header-key
+                - CustomFilter #작성한 customFilter를 타게됨 prefilter(request filter) -> 로직 -> post filter(response filter)
 eureka:
   client:
     register-with-eureka: true
