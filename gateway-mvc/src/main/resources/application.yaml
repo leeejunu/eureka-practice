@@ -6,8 +6,8 @@ spring:
       server:
         webmvc:
           routes:
-            - id: lb:/USER-SERVICE #routing 정보를 구분하기 위한 id
-              uri: http://localhost:8080/ #어디로 갈것인가 lb:USER-SERVICE
+            - id: user-service #routing 정보를 구분하기 위한 id
+              uri: lb://USER-SERVICE #어디로 갈것인가 현재 user-service application.yaml 랜덤포트이므로 lb://USER-SERVICE
               predicates:
                 - Path=/user-service/** #어떠한 요청이 왔을 때 uri로 보낼것인가
               filters:

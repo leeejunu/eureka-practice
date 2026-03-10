@@ -5,7 +5,9 @@ spring:
     name: user-service
 eureka:
   instance:
+    preferIpAddress: true # 서비스간 통신 시 hostname 보다 ip 를 우선
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # user-service:instance_id 없으면 랜덤값
+#    hostname: user-service 컨테이너 등록 시 preferIpAddress, hostname 설정 둘다 없으면 hostname을 현재 머신의 hostname을 가져옴 Macbook-pro ...
   client:
     fetch-registry: true
     register-with-eureka: true
